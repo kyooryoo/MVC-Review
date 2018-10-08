@@ -1,0 +1,33 @@
+﻿@*@model Bokly.Models.Book*@
+@model Bokly.ViewModels.RandomBookViewModel
+@using Bokly.Models
+
+@{
+	ViewBag.Title = "Random";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*use following code to render property dynamically*@
+@{ 
+	var className = Model.Customers.Count > 5 ? "popular" : null;
+}
+
+
+@*following is deprecated method of getting data from view through ViewData*@
+@*<h2>@(((Book) ViewData["Book"]).Name)</h2>*@
+
+@*<h2>@Model.Name</h2>*@
+
+<h2 class="@className">@Model.Book.Name</h2>
+
+@if (Model.Customers.Count == 0)
+{
+	<text>No one has rented this book before.</text>
+}
+
+<ul>
+	@foreach (var customer in Model.Customers)
+	{
+		<li>@customer.Name</li>
+	}
+</ul>

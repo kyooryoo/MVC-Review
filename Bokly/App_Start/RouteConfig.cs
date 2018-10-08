@@ -13,6 +13,15 @@ namespace Bokly
 		{
 			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+			//// use attribute routes to avoid creating specific routing rules
+			//routes.MapRoute(
+			//	"BooksByPublishDate",
+			//	"book/published/{year}/{month}",
+			//	new { controller = "Book", action = "ByPublishDate" },
+			//	new { year = @"\d{4}", month = @"\d{2}" });
+
+			routes.MapMvcAttributeRoutes();
+
 			routes.MapRoute(
 				name: "Default",
 				// request to URL of /books/popular will call action or method of Popular() in BooksController
