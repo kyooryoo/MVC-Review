@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Bokly.Models
 {
@@ -14,5 +10,12 @@ namespace Bokly.Models
 		public byte DiscountRate { get; set; }
 		[Required]
 		public string Name { get; set; }
+
+		// default value is 0, which means Unkown
+		// following two props are used for avoiding magic numbers
+		// which has ambiguous meanings and hard to read in code
+		// in the file of Min18YearIfAMember.cs
+		public static readonly byte Unknown = 0;
+		public static readonly byte PayAsYouGo = 1;
 	}
 }

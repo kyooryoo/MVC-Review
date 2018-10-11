@@ -6,7 +6,9 @@ namespace Bokly.ViewModels
 	public class BookFormViewModel
 	{
 		public IEnumerable<Genre> Generes { get; set; }
+
 		public Book Book { get; set; }
+
 		public string Title
 		{
 			get

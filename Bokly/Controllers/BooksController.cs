@@ -52,7 +52,7 @@ namespace Bokly.Controllers
 		{
 			var book = _context.Books.SingleOrDefault(c => c.Id == id);
 			if (book == null) return HttpNotFound();
-			var viewModel = new BookFormViewModel
+			var viewModel = new BookFormViewModel()
 			{
 				Book = book,
 				Genres = _context.Genres.ToList()
@@ -61,6 +61,7 @@ namespace Bokly.Controllers
 		}
 
 		[HttpPost]
+		[ValidateAntiForgeryToken]
 		public ActionResult Save(Book book)
 		{
 			if (book.Id == 0)

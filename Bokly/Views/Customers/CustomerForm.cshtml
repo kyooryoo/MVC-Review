@@ -1,11 +1,11 @@
 ﻿@model Bokly.ViewModels.CustomerFormViewModel
 @{
-				/**/
+	/**/
 
-				/**/
+	/**/
 
-				ViewBag.Title = "New";
-				Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewBag.Title = "New";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>New Customers</h2>
@@ -14,14 +14,21 @@
 	wrapped with "using", the begin and end tag of form are auto added*@
 @using (Html.BeginForm("Save", "Customers"))
 {
+	@Html.ValidationSummary(true, "Please fix the following errors.")
 	<div class="form-group">
 		@Html.LabelFor(m => m.Customer.Name)
 		@Html.TextBoxFor(m => m.Customer.Name, new { @class = "form-control" })
+		@Html.ValidationMessageFor(m => m.Customer.Name)
 	</div>
-
+	<div class="form-group">
+		@Html.LabelFor(c => c.Customer.MembershipTypeId)
+		@Html.DropDownListFor(c => c.Customer.MembershipTypeId, new SelectList(Model.MembershipTypes, "Id", "Name"), "Select Membership Type", new { @class = "form-control" })
+		@Html.ValidationMessageFor(c => c.Customer.MembershipTypeId)
+	</div> 
 	<div class="form-group">
 		@Html.LabelFor(c => c.Customer.BirthDate)
 		@Html.TextBoxFor(c => c.Customer.BirthDate, "{0:d MMM yyyy}", new { @class = "form-control" })
+		@Html.ValidationMessageFor(m => m.Customer.BirthDate)
 	</div>
 
 	@*<div class="checkbox">
@@ -31,19 +38,18 @@
 		</div>*@
 
 	<div class="form-group">
-		@Html.LabelFor(c => c.Customer.MembershipTypeId)
-		@Html.DropDownListFor(c => c.Customer.MembershipTypeId,
-							new SelectList(Model.MembershipTypes, "Id", "Name"),
-							"Select Membership Type",
-							new { @class = "form-control" })
-	</div>
-
-	<div class="form-group">
 		@Html.CheckBoxFor(c => c.Customer.IsSubscribed)
 		<label>Subscribed to Newsletters?</label>
 	</div>
 
 	@Html.HiddenFor(m => m.Customer.Id)
+	@Html.AntiForgeryToken()
 	<button type="submit" class="btn btn-primary">Save</button>
 }
 
+@*Enable client side validation for better response
+The tradeoff is losing the Validation Summary on top*@
+@section scripts
+{
+	@Scripts.Render("~/bundles/jqueryval")
+}

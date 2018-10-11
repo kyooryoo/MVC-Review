@@ -24,9 +24,12 @@ namespace Bokly.Models
 		public DateTime DateAdded { get; set; }
 
 		[Display(Name = "Release Date")]
+		[Required]
 		public DateTime ReleaseDate { get; set; }
 
 		[Display(Name = "Number in Stock")]
+		[Range(1, 20)]
+		[Required]
 		public byte NumberInStock { get; set; }
 	}
 }
